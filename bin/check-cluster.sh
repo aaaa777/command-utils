@@ -119,7 +119,7 @@ function checkResult() {
 
 function sendMail () { 
     # Send mail
-    echo \"$MAIL_BODY\" | $MAIL_CMD
+    echo "$MAIL_BODY" | $MAIL_CMD
 
 }
  
