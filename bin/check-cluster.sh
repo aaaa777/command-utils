@@ -15,10 +15,7 @@ DATABASE2_PASS=password2
 MYSQL_SCHEMA="db"
 MYSQL_TABLE="__cluster_check_temporary_table"
 
-# メールサーバー設定
-MAIL_SMTP_SERVER="smtp://mailsrv:25"
-
-# メール本文
+# メール設定
 MAIL_TO="root"
 MAIL_FROM="root"
 MAIL_SUBJECT="DB同期 確認失敗通知"
