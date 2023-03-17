@@ -16,7 +16,7 @@ services:
       nofile:
         soft: 4096
         hard: 4096
-    mem_limit: 256m
+    mem_limit: 512m
 
   db2:
     image: mysql:8
@@ -33,7 +33,7 @@ services:
       nofile:
         soft: 4096
         hard: 4096
-    mem_limit: 256m
+    mem_limit: 512m
 
 volumes:
   mysql1:
