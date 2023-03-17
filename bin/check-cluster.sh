@@ -20,12 +20,13 @@ CMD1_MYSQL="mysql -h $DATABASE1_HOST --port=$DATABASE1_PORT -u $DATABASE1_USER -
 CMD2_MYSQL="mysql -h $DATABASE2_HOST --port=$DATABASE2_PORT -u $DATABASE2_USER --password=$DATABASE2_PASS --show-warnings $MYSQL_SCHEMA"
 
 LOG_NAME=/dev/stdout
+LOG_ERR=/dev/stderr
 # LOG_NAME=./mysql-sh.log
 # 実行時間の取得
 PID=$$_`date '+%H%M%N'`
 # ログ出力
 exec 1> >(awk '{print strftime("[%Y-%m-%d %H:%M:%S]") "[""'$PID'""]" $0} {fflush()} ' >>$LOG_NAME)
-exec 2> >(awk '{print strftime("[%Y-%m-%d %H:%M:%S]") "[""'$PID'""]" $0} {fflush()} ') >2
+exec 2> >(awk '{print strftime("[%Y-%m-%d %H:%M:%S]") "[""'$PID'""]" $0} {fflush()} ' >>$LOG_ERR)
  
 function initQuery() {
     local QUERY="create table if not exists \`$MYSQL_TABLE\`(data text); insert into \`$MYSQL_TABLE\`(data) values('$PID');"
