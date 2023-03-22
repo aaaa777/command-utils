@@ -18,11 +18,11 @@ MYSQL_TABLE="__cluster_check_temporary_table"
 # メール設定
 MAIL_TO="root"
 MAIL_FROM="root"
-MAIL_SUBJECT="DB同期 確認失敗通知"
+MAIL_SUBJECT="DB同期確認失敗通知"
 MAIL_BODY="DB同期の確認ができませんでした"
 
 # メールコマンド
-MAIL_CMD="mail -s \"$MAIL_SUBJECT\" -r $MAIL_FROM $MAIL_TO"
+MAIL_CMD="mail -s '$MAIL_SUBJECT' -r $MAIL_FROM $MAIL_TO"
 # mysqlコマンド
 CMD1_MYSQL="mysql -h $DATABASE1_HOST --port=$DATABASE1_PORT -u $DATABASE1_USER --password=$DATABASE1_PASS --show-warnings $MYSQL_SCHEMA"
 CMD2_MYSQL="mysql -h $DATABASE2_HOST --port=$DATABASE2_PORT -u $DATABASE2_USER --password=$DATABASE2_PASS --show-warnings $MYSQL_SCHEMA"
@@ -108,6 +108,7 @@ function deleteQuery() {
 function checkResult() {
     if [ $1 -eq 1 ]; then
         echo "[ERROR] $0 同期の確認に失敗しました"
+        sendMail
         return "1"
     elif [ $1 -eq 0 ]; then
         echo "[INFO] $0 同期を確認しました"
@@ -135,7 +136,6 @@ CODE=$?
 deleteQuery
 # dropQuery
 
-sendMail
 if [ "$CODE" = "0" ]; then
     exit 0
 else
